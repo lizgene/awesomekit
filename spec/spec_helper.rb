@@ -1,5 +1,15 @@
 require 'awesomekit'
 require 'webmock/rspec'
+require 'vcr'
+require 'byebug'
+
+VCR.configure do |config|
+  config.cassette_library_dir = "spec/fixtures/vcr_casettes"
+  config.hook_into :webmock
+  config.filter_sensitive_data("<API_KEY>") do |interaction|
+    interaction.request.headers['X-Typekit-Token'].first
+  end
+end
 
 RSpec.configure do |config|
   config.order = :random

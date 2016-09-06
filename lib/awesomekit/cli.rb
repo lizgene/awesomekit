@@ -7,7 +7,7 @@ module Awesomekit
 
     desc 'logout', 'Remove your Adobe Typekit API key'
     def logout
-      Awesomekit::Authenticator.logout
+      Awesomekit::Authenticator.clear_api_key
       Formatador.display_line('[yellow]Successfully logged out[/]')
     end
 

@@ -14,8 +14,8 @@ module Awesomekit
       save_key_to_config(api_key)
     end
 
-    # PUBLIC: Remove the saved API key from config
-    def self.logout
+    # PUBLIC: Delete any existing api_key config file
+    def self.clear_api_key
       File.unlink(config) if File.exist?(config)
     end
 

@@ -5,8 +5,6 @@ module Awesomekit
   class Client
     include HTTParty
 
-    attr_reader :auth_token
-
     base_uri 'https://typekit.com/api/v1/json'
 
     def initialize(api_key)
@@ -26,8 +24,8 @@ module Awesomekit
     # PUBLIC: Returns information about a kit found by kit_id
     # Endpoint reference: https://typekit.com/docs/api/v1/:format/kits/:kit
     #
-    # published=false returns the default, draft version of the kit
-    # published=true returns information about the published version of a kit
+    # published=false returns the default, current draft version of the kit
+    # published=true returns the current published version of a kit
     def get_kit(kit_id, published)
       if published
         response = self.class.get("/kits/#{kit_id}/published")
@@ -51,7 +49,9 @@ module Awesomekit
         errors = '[red]The server responded with the following error(s):[/] '
         errors << response['errors'].join(',')
 
-        Awesomekit::Authenticator.logout if errors.include?('Not authorized')
+        if errors.include?('Not authorized')
+          Awesomekit::Authenticator.clear_api_key
+        end
 
         Formatador.display_line(errors)
 

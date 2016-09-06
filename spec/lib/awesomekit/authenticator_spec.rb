@@ -7,7 +7,7 @@ module Awesomekit
     let(:config_path) { described_class::CONFIG_FILE }
 
     before do
-      allow(described_class).to receive(:config).and_return(config_path)
+      allow(described_class).to receive(:config) { config_path }
     end
 
     describe '.get_api_key' do
@@ -15,9 +15,9 @@ module Awesomekit
 
       context 'API key exists' do
         before do
-          allow(config_file).to receive(:gets).and_return(api_key)
-          allow(File).to receive(:exist?).and_return(true)
-          allow(File).to receive(:open).with(config_path, 'r').and_return(config_file)
+          allow(config_file).to receive(:gets) { api_key }
+          allow(File).to receive(:exist?) { true }
+          allow(File).to receive(:open).with(config_path, 'r') { config_file }
         end
 
         it 'does not save to the config file' do
@@ -30,8 +30,8 @@ module Awesomekit
       context 'API key does not exist' do
         before do
           allow(Formatador).to receive(:display)
-          allow(File).to receive(:exist?).and_return(false)
-          allow(STDIN).to receive_message_chain(:gets, :chomp).and_return(api_key)
+          allow(File).to receive(:exist?) { false }
+          allow(STDIN).to receive_message_chain(:gets, :chomp) { api_key }
           allow(File).to receive(:open).with(config_path, 'w').and_yield(config_file)
         end
 
@@ -43,7 +43,14 @@ module Awesomekit
       end
     end
 
-    describe '.logout' do
+    describe '.clear_api_key' do
+      before { allow(File).to receive(:exist?) { true } }
+
+      it 'removes the file' do
+        expect(File).to receive(:unlink).with(config_path)
+
+        described_class.clear_api_key
+      end
     end
   end
 end

@@ -25,6 +25,7 @@ GEM
     rspec-support (3.4.1)
     safe_yaml (1.0.4)
     thor (0.19.1)
+    vcr (2.9.3)
     webmock (1.20.4)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -38,6 +39,7 @@ DEPENDENCIES
   httparty
   rspec
   thor
+  vcr
   webmock
 
 BUNDLED WITH
