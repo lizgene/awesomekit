@@ -1,4 +1,5 @@
 require 'thor'
+require 'byebug'
 
 module Awesomekit
   class CLI < Thor
@@ -11,10 +12,22 @@ module Awesomekit
     end
 
     desc 'list', 'List available kits'
+    method_option :verbose, type: :boolean
+    method_option :published, default: false, type: :boolean, :aliases => "-p",
+      description: 'Flag to return information on the current
+      published version of the kit. Defaults to false, or draft kit version.'
     def list
-      kits = @client.get_kits
+      kits = typekit_client.get_kits
+      return not_found if kits.empty?
 
-      kits.each { |kit| display_kit(kit) }
+      display_kits(kits)
+
+      if options[:verbose]
+        kits.each do |kit|
+          kit = typekit_client.get_kit(kit['id'], options[:published])
+          display_kit_detail(kit)
+        end
+      end
     end
 
     desc 'show', 'Display a specific kit'
@@ -23,44 +36,45 @@ module Awesomekit
       description: 'Flag to return information on the current
       published version of the kit. Defaults to false, or draft kit version.'
     def show
-      kit = @client.get_kit(options[:id])
+      kit = typekit_client.get_kit(options[:id], options[:published])
 
-      display_kit(kit)
+      display_kit_detail(kit)
     end
 
     private
 
-    # TODO: Error handling. Possibly for the client?
-    # return not_found if kits.empty?
-    # return display_errors(kits) if kits.key?('errors')
-    def display_errors(response)
-      errors = '[red]The server responded with the following error(s):[/] '
-      errors << response['errors'].join(',')
+    def display_kits(kits)
+      Formatador.display_line("[bold]Your Kits:[/]")
+      Formatador.display_table(kits)
+    end
 
-      Formatador.display_line(errors)
+    def display_kit_detail(kit)
+      Formatador.display_line("[blue]Kit: #{kit['name']}[/]")
+      kit_data = [{
+        id: kit['id'],
+        domains: kit['domains'].join(','),
+        analytics: kit['analytics'].to_s
+      }]
+      Formatador.display_table(kit_data, [:id, :domains, :analytics])
+
+      Formatador.display_line("[bold]#{kit['name']} Families:[/]")
+      kit['families'].each do |family|
+        display_family_detail(family)
+      end
+    end
+
+    def display_family_detail(family)
+      family_data = [{
+        name: family['name'],
+        id: family['id'],
+        slug: family['slug'],
+        css_names: family['css_names'].join(',')
+      }]
+      Formatador.display_table(family_data, [:name, :id, :slug, :css_names])
     end
 
     def not_found
       Formatador.display_line('[red]No kits found[/]')
-    end
-
-    # TODO: Move this to a formatting class
-    def display_kit(kit)
-      Formatador.display_line("[bold]Name:[/] #{kit['name']}")
-      Formatador.display_line("[bold]ID:[/] #{kit['id']}")
-      Formatador.display_line("[bold]Analytics:[/] #{kit['analytics']}")
-      Formatador.display_line("[bold]Domains:[/] #{kit['domains'].join(',')}")
-
-      Formatador.display_line('[bold]Families:[/]')
-
-      Formatador.indent do
-        kit['families'].each do |family|
-          Formatador.display_line("[bold]Name:[/] #{family['name']}")
-          Formatador.display_line("[bold]ID:[/] #{family['id']}")
-          Formatador.display_line("[bold]Slug:[/] #{family['slug']}")
-          Formatador.display_line("[bold]CSS Names:[/] #{family['css_names'].join(',')}\n")
-        end
-      end
     end
 
     def typekit_client

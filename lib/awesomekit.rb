@@ -7,4 +7,4 @@ require 'formatador'
 
 require 'awesomekit/authenticator'
 require 'awesomekit/client'
-require 'typekit/cli'
+require 'awesomekit/cli'

@@ -1,13 +1,15 @@
 #!/usr/bin/env ruby
 
+require 'byebug'
+
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'awesomekit'
 
 NON_AUTH_ACTIONS = ['logout', 'help']
-requires_authentication = (ARGV & NON_AUTH_ACTIONS).size > 0
 
-Awesomekit::Authenticator.authorize! if requires_authentication
+requires_authentication = (ARGV - NON_AUTH_ACTIONS).any?
+Awesomekit::Authenticator.get_api_key if requires_authentication
 
 Awesomekit::CLI.start(ARGV)

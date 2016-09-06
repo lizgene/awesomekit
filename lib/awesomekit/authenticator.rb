@@ -1,46 +1,43 @@
+require 'byebug'
+
 module Awesomekit
   class Authenticator
+    CONFIG_FILE = '.typekit'
 
-    # PUBLIC: If an API key is not yet saved, or is invalid, prompt the user to
+    # PUBLIC: If an API key is not yet saved, prompt the user to
     # enter a new API key and save it to .typekit config file
-    def self.authorize!
-      return if valid_api_key?
+    def self.get_api_key
+      return if api_key
 
-      api_key = prompt_for_user_key
+      api_key = prompt_user_for_key
 
-      save_or_update_key(api_key)
+      save_key_to_config(api_key)
     end
 
-    # PUBLIC: Return the current saved API key, or nil if no key is saved.
-    def self.api_key
-      File.exist?(config) ? File.open(config, 'r').gets : nil
-    end
-
-    # PUBLIC: Remove the saved API key from .typekit config
+    # PUBLIC: Remove the saved API key from config
     def self.logout
       File.unlink(config) if File.exist?(config)
     end
 
     private
-
-    # TODO: Verify with the TypeKit server if this token is valid
-    def valid_api_key?
-      true
+    # PRIVATE: Return the current saved API key, or nil if no key exists
+    def self.api_key
+      File.exist?(config) ? File.open(config, 'r').gets : nil
     end
 
-    def prompt_for_user_key
+    def self.prompt_user_for_key
       Formatador.display('[yellow]Please enter your Adobe Typekit API key: [/]')
       STDIN.gets.chomp
     end
 
-    def save_or_update_key(api_key)
+    def self.save_key_to_config(api_key)
       File.open(config, 'w') do |file|
         file.write(api_key)
       end
     end
 
-    def config
-      File.join(Dir.home, '.typekit')
+    def self.config
+      File.join(Dir.home, CONFIG_FILE)
     end
   end
 end
