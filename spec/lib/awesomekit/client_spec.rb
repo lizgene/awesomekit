@@ -4,7 +4,7 @@ module Awesomekit
     let(:kit_id) { 'zxg2svq' }
     let(:client) { described_class.new(api_key) }
 
-    # Silence Formatador when running specs
+    # Silence Formatador output
     before { allow(Formatador).to receive(:display_line) }
 
     describe '#get_kits' do

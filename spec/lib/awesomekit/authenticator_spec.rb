@@ -10,8 +10,8 @@ module Awesomekit
       allow(described_class).to receive(:config) { config_path }
     end
 
-    describe '.get_api_key' do
-      subject { described_class.get_api_key }
+    describe '.get_or_set_api_key' do
+      subject { described_class.get_or_set_api_key }
 
       context 'API key exists' do
         before do
