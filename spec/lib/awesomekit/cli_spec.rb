@@ -27,18 +27,18 @@ module Awesomekit
       let(:output) { capture(:stdout) { subject.list } }
 
       context 'kits found' do
-        it 'displays results for all returned kits' do
+        it 'prints results for all returned kits' do
           expect(output).to include('foo', '/api/v1/json/kits/foo')
           expect(output).to include('bar', '/api/v1/json/kits/bar')
           expect(output).not_to include('foobar.com')
         end
       end
 
-      context 'no kits found' do
+      context 'kits not found' do
         let(:kits) { [] }
 
-        it 'displays an error message' do
-          expect(output).to include('No kits found')
+        it 'does not print results' do
+          expect(output).not_to include('foo', '/api/v1/json/kits/foo')
         end
       end
 
@@ -50,7 +50,7 @@ module Awesomekit
           end
         end
 
-        it 'displays kit details in the results' do
+        it 'prints kit details' do
           expect(output).to include('foo', '/api/v1/json/kits/foo')
           expect(output).to include('bar', '/api/v1/json/kits/bar')
           expect(output).to include('foobar.com')
@@ -63,17 +63,14 @@ module Awesomekit
         capture(:stdout) { subject.show }
       end
 
-      it 'displays kit detail results' do
+      it 'prints kit details' do
         expect(output).to include('foo', 'Foo Kit', 'true', 'foobar.com')
       end
     end
 
     describe '#logout' do
-      # Silence Formatador output
-      before { allow(Formatador).to receive(:display_line) }
-
-      it 'clears the existing API key' do
-        expect(Awesomekit::Authenticator).to receive(:clear_api_key)
+      it 'clears the existing API token' do
+        expect(Awesomekit::Authenticator).to receive(:clear_api_token)
 
         subject.logout
       end

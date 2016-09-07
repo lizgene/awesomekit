@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 06 Sep 2016 23:06:05 GMT
+      - Wed, 07 Sep 2016 16:19:54 GMT
       Etag:
       - '"9ec6f05e4b1c871ca6c72ec6ac7fd00c"'
       Remote-User:
@@ -33,9 +33,9 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Request-Id:
-      - ef89570a-6f7f-40b9-9914-42d53d459dfb
+      - adc6ba0c-3443-46b9-9a5d-fef7baf0341d
       X-Runtime:
-      - '0.108119'
+      - '0.043043'
       Content-Length:
       - '318'
       Connection:
@@ -44,5 +44,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"kit":{"id":"zxg2svq","name":"Another Kit","analytics":false,"domains":["lizhubertz.com"],"families":[{"id":"lydn","name":"Bungee","slug":"bungee","css_names":["bungee"],"css_stack":"\"bungee\",sans-serif","subset":"default","variations":["n4","n7"]}],"optimize_performance":false,"published":"2016-09-06T22:58:45Z"}}'
     http_version: 
-  recorded_at: Tue, 06 Sep 2016 23:06:05 GMT
+  recorded_at: Wed, 07 Sep 2016 16:19:54 GMT
 recorded_with: VCR 2.9.3

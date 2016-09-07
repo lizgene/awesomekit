@@ -13,7 +13,11 @@ end
 RSpec.configure do |config|
   config.order = :random
 
-  # Capture and return text output
+  # Silence stdout output for specs
+  # Comment out this line if you want to use a debugger while testing
+  # config.before { allow($stdout).to receive(:puts) }
+
+  # Capture and return stdout output for inspection
   def capture(stream)
     begin
       stream = stream.to_s
