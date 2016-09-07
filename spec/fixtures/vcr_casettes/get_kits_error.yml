@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 06 Sep 2016 22:43:11 GMT
+      - Wed, 07 Sep 2016 16:36:00 GMT
       Server:
       - nginx
       Status:
@@ -31,9 +31,9 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Request-Id:
-      - 227dd79a-e197-48cf-bb34-d63a90060816
+      - 6ecc68c4-29ac-4ec6-b952-80ff035cb315
       X-Runtime:
-      - '0.009926'
+      - '0.009684'
       Content-Length:
       - '29'
       Connection:
@@ -42,5 +42,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"errors":["Not authorized"]}'
     http_version: 
-  recorded_at: Tue, 06 Sep 2016 22:43:11 GMT
+  recorded_at: Wed, 07 Sep 2016 16:36:00 GMT
 recorded_with: VCR 2.9.3

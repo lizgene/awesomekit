@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 06 Sep 2016 23:06:14 GMT
+      - Wed, 07 Sep 2016 16:19:55 GMT
       Etag:
       - '"5efd239f3cb8e76995b88632d62e140a"'
       Remote-User:
@@ -33,9 +33,9 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Request-Id:
-      - 4836bb0b-60f4-43cf-98d1-07970c3c5e53
+      - 561f2706-a039-4f39-b899-a42e9da94357
       X-Runtime:
-      - '0.053458'
+      - '0.064319'
       Content-Length:
       - '465'
       Connection:
@@ -45,5 +45,5 @@ http_interactions:
       string: '{"kit":{"id":"zxg2svq","name":"Another Kit","analytics":false,"domains":["lizhubertz.com"],"families":[{"id":"lydn","name":"Bungee","slug":"bungee","css_names":["bungee"],"css_stack":"\"bungee\",cursive","subset":"default","variations":["n4","n5","n6","n7"]},{"id":"nyty","name":"Acumin
         Pro","slug":"acumin-pro","css_names":["acumin-pro"],"css_stack":"\"acumin-pro\",sans-serif","subset":"default","variations":["n4","i4","n7","i7"]}],"optimize_performance":false}}'
     http_version: 
-  recorded_at: Tue, 06 Sep 2016 23:06:14 GMT
+  recorded_at: Wed, 07 Sep 2016 16:19:55 GMT
 recorded_with: VCR 2.9.3

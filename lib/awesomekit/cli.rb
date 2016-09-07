@@ -43,7 +43,7 @@ module Awesomekit
     private
 
     def typekit_client
-      @client ||= Awesomekit::Client.new
+      @client ||= Awesomekit::Client.new(Awesomekit::Authenticator.api_token)
     end
   end
 end

@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Tue, 06 Sep 2016 22:39:09 GMT
+      - Wed, 07 Sep 2016 16:19:53 GMT
       Etag:
       - '"c9e725b4b23d2c9d49420b57d8d45a30"'
       Remote-User:
@@ -33,9 +33,9 @@ http_interactions:
       X-Frame-Options:
       - SAMEORIGIN
       X-Request-Id:
-      - 83c4c260-4c41-44d4-a555-a3c11f31bef3
+      - 7935ca86-0a87-45ef-b5e7-a9899713e5be
       X-Runtime:
-      - '0.013896'
+      - '0.013806'
       Content-Length:
       - '62'
       Connection:
@@ -44,5 +44,5 @@ http_interactions:
       encoding: UTF-8
       string: '{"kits":[{"id":"zxg2svq","link":"/api/v1/json/kits/zxg2svq"}]}'
     http_version: 
-  recorded_at: Tue, 06 Sep 2016 22:39:08 GMT
+  recorded_at: Wed, 07 Sep 2016 16:19:53 GMT
 recorded_with: VCR 2.9.3

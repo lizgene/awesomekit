@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://typekit.com/api/v1/json/kits/bananas
+    uri: https://typekit.com/api/v1/json/kits
     body:
       encoding: US-ASCII
       string: ''
@@ -11,34 +11,38 @@ http_interactions:
       - "<API_KEY>"
   response:
     status:
-      code: 404
-      message: Not Found
+      code: 200
+      message: OK
     headers:
       Cache-Control:
-      - no-cache
+      - max-age=0, private, must-revalidate
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Wed, 07 Sep 2016 16:19:54 GMT
+      - Wed, 07 Sep 2016 16:47:06 GMT
+      Etag:
+      - '"05cfa0d7744a6d7c39b65047fc894c82"'
+      Remote-User:
+      - '6289438'
       Server:
       - nginx
       Status:
-      - 404 Not Found
+      - 200 OK
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - SAMEORIGIN
       X-Request-Id:
-      - 51247d0f-5f31-4a41-9759-fc8c93b46f15
+      - efda79e1-9bb8-4d70-a6e2-fffbd66617ea
       X-Runtime:
-      - '0.009463'
+      - '0.018822'
       Content-Length:
-      - '24'
+      - '11'
       Connection:
       - keep-alive
     body:
       encoding: UTF-8
-      string: '{"errors":["Not Found"]}'
+      string: '{"kits":[]}'
     http_version: 
-  recorded_at: Wed, 07 Sep 2016 16:19:54 GMT
+  recorded_at: Wed, 07 Sep 2016 16:47:06 GMT
 recorded_with: VCR 2.9.3

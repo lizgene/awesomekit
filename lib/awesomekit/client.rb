@@ -5,14 +5,17 @@ module Awesomekit
     include HTTParty
 
     base_uri 'https://typekit.com/api/v1/json'
-    headers 'X-Typekit-Token' => Awesomekit::Authenticator.api_token
+
+    def initialize(api_token)
+      self.class.headers('X-Typekit-Token' => api_token)
+    end
 
     # PUBLIC: Returns a list of kits owned by the authenticating user
     # Endpoint reference: https://typekit.com/docs/api/v1/:format/kits
     def get_kits
       response = self.class.get("/kits")
 
-      process_errors(response)
+      return if process_errors(response)
 
       # If no kits are found, an empty array is returned (not a Not Found error)
       kits = response['kits']
@@ -33,7 +36,7 @@ module Awesomekit
         response = self.class.get("/kits/#{kit_id}")
       end
 
-      process_errors(response)
+      return if process_errors(response)
 
       response['kit']
     end
@@ -53,12 +56,14 @@ module Awesomekit
           Awesomekit::Authenticator.clear_api_token
         end
 
-        ap(errors, color: { string: :red })
+        puts(errors)
+
+        return true
       end
     end
 
     def not_found
-      ap('No kits found', color: { string: :red })
+      puts('No kits found')
     end
   end
 end

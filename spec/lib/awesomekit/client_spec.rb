@@ -1,11 +1,11 @@
 module Awesomekit
   describe Client do
-    let(:api_key) { 'foobar' }
+    # At the moment, to regenerate casettes, you should reassign your
+    # API_TOKEN and KIT_ID accordingly.
+    let(:api_token) { 'foobar' }
     let(:kit_id) { 'zxg2svq' }
-    let(:client) { described_class.new(api_key) }
-
-    # Silence Formatador output
-    before { allow(Formatador).to receive(:display_line) }
+    let(:client) { described_class.new(api_token) }
+    let(:output) { capture(:stdout) { subject } }
 
     describe '#get_kits' do
       subject { client.get_kits }
@@ -21,14 +21,20 @@ module Awesomekit
         end
       end
 
+      context 'no kits returned' do
+        around { |spec| VCR.use_cassette('get_kits_not_found') { spec.run } }
+
+        it 'prints an error message' do
+          expect(output).to match(/No kits found/)
+        end
+      end
+
       context 'error unauthorized request' do
         around { |spec| VCR.use_cassette('get_kits_error') { spec.run } }
 
-        it 'exits with an error message and clears the API key' do
-          expect(Awesomekit::Authenticator).to receive(:clear_api_key)
-          expect(Formatador).to receive(:display_line).with(/Not authorized/)
-
-          expect { subject }.to raise_error(SystemExit)
+        it 'prints an error message and clears the API token' do
+          expect(Awesomekit::Authenticator).to receive(:clear_api_token)
+          expect(output).to match(/Not authorized/)
         end
       end
     end
@@ -66,11 +72,9 @@ module Awesomekit
 
         around { |spec| VCR.use_cassette('get_kit_error') { spec.run } }
 
-        it 'exits with an error message but does not clear the API key' do
-          expect(Awesomekit::Authenticator).not_to receive(:clear_api_key)
-          expect(Formatador).to receive(:display_line).with(/Not Found/)
-
-          expect { subject }.to raise_error(SystemExit)
+        it 'prints an error message but does not clear the API token' do
+          expect(Awesomekit::Authenticator).not_to receive(:clear_api_token)
+          expect(output).to match(/Not Found/)
         end
       end
     end
