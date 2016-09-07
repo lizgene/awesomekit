@@ -4,7 +4,7 @@ module Awesomekit
     # API_TOKEN and KIT_ID accordingly.
     let(:api_token) { 'foobar' }
     let(:kit_id) { 'zxg2svq' }
-    let(:client) { described_class.new }
+    let(:client) { described_class.new(api_token) }
     let(:output) { capture(:stdout) { subject } }
 
     before do

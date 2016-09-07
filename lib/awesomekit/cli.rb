@@ -1,5 +1,6 @@
 require 'thor'
 require 'awesome_print'
+require 'byebug'
 
 module Awesomekit
   class CLI < Thor
@@ -7,8 +8,21 @@ module Awesomekit
 
     desc 'logout', 'Remove your Adobe Typekit API token'
     def logout
+      if Awesomekit::Authenticator.api_token
+        Awesomekit::Authenticator.clear_api_token
+        print("Successfully logged out\n")
+      else
+        print("Already logged out. Use command awesomekit login to save a new API key.")
+      end
+    end
+
+    desc 'login', 'Add or update your Adobe Typekit API token'
+    def login
       Awesomekit::Authenticator.clear_api_token
-      ap('Successfully logged out', color: { string: :yellow })
+      Awesomekit::Authenticator.get_or_set_api_token
+
+      api_token = Awesomekit::Authenticator.api_token
+      print("Your token has been saved as: #{api_token}\n")
     end
 
     desc 'list', 'List available kits'
@@ -43,7 +57,8 @@ module Awesomekit
     private
 
     def typekit_client
-      @client ||= Awesomekit::Client.new
+      @client ||=
+        Awesomekit::Client.new(Awesomekit::Authenticator.get_or_set_api_token)
     end
   end
 end

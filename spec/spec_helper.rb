@@ -15,7 +15,9 @@ RSpec.configure do |config|
 
   # Silence stdout output for specs
   # Comment out this line if you want to use a debugger while testing
-  # config.before { allow($stdout).to receive(:puts) }
+  # config.before { allow($stdout).to receive(:print) }
+  config.before { allow($stdout).to receive(:puts) }
+
 
   # Capture and return stdout output for inspection
   def capture(stream)

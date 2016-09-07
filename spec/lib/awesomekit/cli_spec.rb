@@ -69,10 +69,27 @@ module Awesomekit
     end
 
     describe '#logout' do
-      it 'clears the existing API token' do
-        expect(Awesomekit::Authenticator).to receive(:clear_api_token)
+      let(:output) do
+        capture(:stdout) { subject.logout }
+      end
 
-        subject.logout
+      context 'API token exists' do
+        it 'clears the existing API token' do
+          expect(Awesomekit::Authenticator).to receive(:clear_api_token)
+
+          expect(output).to include('Successfully logged out')
+        end
+      end
+
+      context 'API token does not exist' do
+
+        before do
+          allow_any_instance_of(Awesomekit::Authenticator).to receive(:api_token) { 'abc123' }
+        end
+
+        it 'prints the already logged out message' do
+          expect(output).to include('Already logged out')
+        end
       end
     end
   end

@@ -7,10 +7,11 @@ Simple Ruby client for the [Typekit API](https://typekit.com).
 
 ## Setup
 
-Create an account at [typekit.com](https://typekit.com) and generate an API key [here](https://typekit.com/account/tokens).
+Create an account at [typekit.com](https://typekit.com) and generate an API token [here](https://typekit.com/account/tokens).
 
-Save your API key in the default config destination `.typekit`
-Or, via the CLI, you will be prompted to enter your API key upon your first request to the Typekit servers.
+To set your Typekit API token:
+
+`$ awesomekit login`
 
 ## Examples
 
@@ -23,7 +24,7 @@ To get a list of all available kits:
 ```ruby
 >> require 'awesomekit'
 => true
->> client = Awesomekit::Client.new("your_api_key")
+>> client = Awesomekit::Client.new("your_api_token")
 => #<Awesomekit::Client:0x007f8639345640>
 >> client.get_kits
 ```
@@ -36,7 +37,7 @@ pass a second boolean argument `published` to see the current published version.
 ```ruby
 >> require 'awesomekit'
 => true
->> client = Awesomekit::Client.new("your_api_key")
+>> client = Awesomekit::Client.new("your_api_token")
 => #<Awesomekit::Client:0x007f8639345640>
 >> client.get_kit("your_kit_id") # current draft version
 >> client.get_kit("your_kit_id", true) # published version
@@ -46,7 +47,8 @@ pass a second boolean argument `published` to see the current published version.
 
 Option                        | Description
 ------------------------------|--------------------------------------------------
-`awesomekit logout` | Remove your Adobe Typekit API key
+`awesomekit logout` | Remove your Adobe Typekit API token
+`awesomekit login` | Set or update your Adobe Typekit API token
 `awesomekit list` | List available kits associated with the logged in user
 `awesomekit list --verbose` | Display all available kits with kit detail information
 `typekit show --id=ID` | Display detail information about the kit specified by the required id option
@@ -58,8 +60,9 @@ Tests are written with [rspec](http://rspec.info/) with HTTP requests mocked wit
 ## TODO
 
 - There are plenty of endpoints not yet implemented here - let's get cracking!
-- Move api_key to ENV
+- If you're using this tool in a rails app, update to save your api_token in an environment variable
 - Structure and return kits more like "kit objects," vs. json hashes full of data
+- Specs can always be improved!
 
 
 ## Contributing
@@ -68,7 +71,7 @@ Tests are written with [rspec](http://rspec.info/) with HTTP requests mocked wit
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+5. Create new [Pull Request](https://github.com/blog/1943-how-to-write-the-perfect-pull-request)
 
 ## License
 
