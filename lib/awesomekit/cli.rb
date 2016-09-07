@@ -40,6 +40,13 @@ module Awesomekit
       ap(kit) if kit
     end
 
+    desc 'yo', 'yo yo yo yo'
+    def yo
+      puts("What is your name? \n")
+      name = STDIN.gets.chomp
+      puts("   ~(0.0)~   \nyo #{name}, you seem pretty cool.\nYou should totally fork this repo and make it more awesome.\n")
+    end
+
     private
 
     def typekit_client

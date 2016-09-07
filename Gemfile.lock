@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    awesomekit (0.0.1)
+    awesomekit (0.0.7)
       awesome_print (~> 1.7, >= 1.7.0)
       httparty (~> 0.14.0)
       thor (~> 0.19.1)

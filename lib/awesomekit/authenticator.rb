@@ -20,7 +20,7 @@ module Awesomekit
     private
 
     def self.prompt_user_for_token
-      ap('Enter your Adobe Typekit API token: ', color: { string: :yellow })
+      puts("Enter your Adobe Typekit API token: \n")
       api_token = STDIN.gets.chomp
       save_token_to_config(api_token)
       api_token
