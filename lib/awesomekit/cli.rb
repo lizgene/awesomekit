@@ -1,5 +1,4 @@
 require 'thor'
-require 'byebug'
 
 module Awesomekit
   class CLI < Thor
@@ -9,6 +8,12 @@ module Awesomekit
     def logout
       Awesomekit::Authenticator.clear_api_key
       Formatador.display_line('[yellow]Successfully logged out[/]')
+    end
+
+    desc 'login', 'Add or Change your Adobe Typekit API key'
+    def login
+      Awesomekit::Authenticator.clear_api_key
+      Awesomekit::Authenticator.get_or_set_api_key
     end
 
     desc 'list', 'List available kits'

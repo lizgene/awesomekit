@@ -1,5 +1,4 @@
 require 'httparty'
-require 'byebug'
 
 module Awesomekit
   class Client
@@ -26,7 +25,7 @@ module Awesomekit
     #
     # published=false returns the default, current draft version of the kit
     # published=true returns the current published version of a kit
-    def get_kit(kit_id, published)
+    def get_kit(kit_id, published=false)
       if published
         response = self.class.get("/kits/#{kit_id}/published")
       else

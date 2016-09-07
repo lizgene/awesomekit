@@ -1,17 +1,14 @@
-require 'byebug'
-
 module Awesomekit
   class Authenticator
     CONFIG_FILE = '.typekit'
 
-    # PUBLIC: If an API key is not yet saved, prompt the user to
-    # enter a new API key and save it to .typekit config file
-    def self.get_or_set_api_key
-      return if api_key
+    # PUBLIC: Get the existing api_key or prompt user for an api_key
+    # if the requested action requires Typekit authentication.
+    def authenticate(cli_args)
+      non_auth_actions = ['logout', 'help']
+      requires_authentication = (cli_args - non_auth_actions).any?
 
-      api_key = prompt_user_for_key
-
-      save_key_to_config(api_key)
+      get_or_set_api_key if requires_authentication
     end
 
     # PUBLIC: Delete any existing api_key config file
@@ -19,12 +16,20 @@ module Awesomekit
       File.unlink(config) if File.exist?(config)
     end
 
-    # PUBLIC: Return the current saved API key, or nil if no key exists
+    # PUBLIC: Return the current saved api_key, nil if no key exists
     def self.api_key
       File.exist?(config) ? File.open(config, 'r').gets : nil
     end
 
     private
+
+    def self.get_or_set_api_key
+      return if api_key
+
+      api_key = prompt_user_for_key
+
+      save_key_to_config(api_key)
+    end
 
     def self.prompt_user_for_key
       Formatador.display('[yellow]Please enter your Adobe Typekit API key: [/]')

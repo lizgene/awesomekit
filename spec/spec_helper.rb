@@ -1,7 +1,6 @@
 require 'awesomekit'
 require 'webmock/rspec'
 require 'vcr'
-require 'byebug'
 
 VCR.configure do |config|
   config.cassette_library_dir = "spec/fixtures/vcr_casettes"
@@ -14,8 +13,7 @@ end
 RSpec.configure do |config|
   config.order = :random
 
-  Kernel.srand config.seed
-
+  # Capture and return text output
   def capture(stream)
     begin
       stream = stream.to_s

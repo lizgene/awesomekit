@@ -1,9 +1,3 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'httparty'
-gem 'formatador'
-gem 'thor'
-gem 'byebug'
-gem 'rspec'
-gem 'webmock'
-gem 'vcr'
+gemspec
