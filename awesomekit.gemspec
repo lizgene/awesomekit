@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'thor', '~> 0.19.1'
   gem.add_dependency 'httparty', '~> 0.14.0'
-  gem.add_dependency 'formatador', '~> 0.2.5'
+  gem.add_dependency 'awesome_print', '~> 1.7', '>= 1.7.0'
 
   gem.add_development_dependency 'rspec', '~> 3.3', '>= 3.3.0'
   gem.add_development_dependency 'webmock', '~> 1.21', '>= 1.21.0'

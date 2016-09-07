@@ -3,8 +3,6 @@ module Awesomekit
   NAME = 'awesomekit'
 end
 
-require 'formatador'
-
 require 'awesomekit/authenticator'
 require 'awesomekit/client'
 require 'awesomekit/cli'

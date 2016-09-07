@@ -5,10 +5,7 @@ module Awesomekit
     include HTTParty
 
     base_uri 'https://typekit.com/api/v1/json'
-
-    def initialize(api_key)
-      self.class.headers('X-Typekit-Token' => api_key)
-    end
+    headers 'X-Typekit-Token' => Awesomekit::Authenticator.api_token
 
     # PUBLIC: Returns a list of kits owned by the authenticating user
     # Endpoint reference: https://typekit.com/docs/api/v1/:format/kits
@@ -17,7 +14,11 @@ module Awesomekit
 
       process_errors(response)
 
-      response['kits']
+      # If no kits are found, an empty array is returned (not a Not Found error)
+      kits = response['kits']
+      return not_found if kits.nil? || kits.empty?
+
+      kits
     end
 
     # PUBLIC: Returns information about a kit found by kit_id
@@ -41,21 +42,23 @@ module Awesomekit
 
     # PRIVATE: Display any error messages returned by Typekit.
     #
-    # Automatically removes an invalid api_key if error is a 401 not authorized,
-    # so the user will be prompted to enter a new key on their next request.
+    # Automatically removes an invalid api_token if error is a 401 not authorized,
+    # so the user will be prompted to enter a new token on their next request.
     def process_errors(response)
       if response['errors']
-        errors = '[red]The server responded with the following error(s):[/] '
+        errors = 'The server responded with the following error(s): '
         errors << response['errors'].join(',')
 
         if errors.include?('Not authorized')
-          Awesomekit::Authenticator.clear_api_key
+          Awesomekit::Authenticator.clear_api_token
         end
 
-        Formatador.display_line(errors)
-
-        exit
+        ap(errors, color: { string: :red })
       end
+    end
+
+    def not_found
+      ap('No kits found', color: { string: :red })
     end
   end
 end

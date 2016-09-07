@@ -2,33 +2,33 @@ module Awesomekit
   class Authenticator
     CONFIG_FILE = '.typekit'
 
-    # PUBLIC: Return the current saved api_key
-    # If no key exists, prompt user for key
-    def self.api_key
+    # PUBLIC: Return the current saved api_token
+    # If no token exists, prompt user for token
+    def self.api_token
       if File.exist?(config)
         File.open(config, 'r').gets
       else
-        prompt_user_for_key
+        prompt_user_for_token
       end
     end
 
-    # PUBLIC: Delete any existing api_key config file
-    def self.clear_api_key
+    # PUBLIC: Delete any existing api_token config file
+    def self.clear_api_token
       File.unlink(config) if File.exist?(config)
     end
 
     private
 
-    def self.prompt_user_for_key
-      Formatador.display('[yellow]Please enter your Adobe Typekit API key: [/]')
-      api_key = STDIN.gets.chomp
-      save_key_to_config(api_key)
-      api_key
+    def self.prompt_user_for_token
+      ap('Enter your Adobe Typekit API token: ', color: { string: :yellow })
+      api_token = STDIN.gets.chomp
+      save_token_to_config(api_token)
+      api_token
     end
 
-    def self.save_key_to_config(api_key)
+    def self.save_token_to_config(api_token)
       File.open(config, 'w') do |file|
-        file.write(api_key)
+        file.write(api_token)
       end
     end
 
