@@ -1,5 +1,5 @@
 module Awesomekit
-  VERSION = '0.0.0'
+  VERSION = '0.0.1'
   NAME = 'awesomekit'
 end
 

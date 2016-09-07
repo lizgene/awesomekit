@@ -10,8 +10,8 @@ module Awesomekit
       allow(described_class).to receive(:config) { config_path }
     end
 
-    describe '.get_or_set_api_key' do
-      subject { described_class.get_or_set_api_key }
+    describe '.api_key' do
+      subject { described_class.api_key }
 
       context 'API key exists' do
         before do
@@ -20,10 +20,9 @@ module Awesomekit
           allow(File).to receive(:open).with(config_path, 'r') { config_file }
         end
 
-        it 'does not save to the config file' do
+        it 'does not save to the config file and returns the API key' do
           expect(config_file).not_to receive(:write).with(api_key)
-
-          subject
+          expect(subject).to eq(api_key)
         end
       end
 
@@ -37,8 +36,7 @@ module Awesomekit
 
         it 'saves user API key to the config file' do
           expect(config_file).to receive(:write).with(api_key)
-
-          subject
+          expect(subject).to eq(api_key)
         end
       end
     end
