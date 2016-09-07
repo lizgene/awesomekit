@@ -9,9 +9,8 @@ Simple Ruby client for the [Typekit API](https://typekit.com).
 
 Create an account at [typekit.com](https://typekit.com) and generate an API key [here](https://typekit.com/account/tokens).
 
-Set the api key by running this command:
-
-`awesomekit login`
+Save your API key in the default config destination `.typekit`
+Or, via the CLI, you will be prompted to enter your API key upon your first request to the Typekit servers.
 
 ## Examples
 
@@ -47,7 +46,6 @@ pass a second boolean argument `published` to see the current published version.
 
 Option                        | Description
 ------------------------------|--------------------------------------------------
-`awesomekit login` | Input and save your Adobe Typekit API key
 `awesomekit logout` | Remove your Adobe Typekit API key
 `awesomekit list` | List available kits associated with the logged in user
 `awesomekit list --verbose` | Display all available kits with kit detail information

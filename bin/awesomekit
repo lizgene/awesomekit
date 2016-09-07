@@ -5,6 +5,4 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require 'awesomekit'
 
-Awesomekit::Authenticator.authenticate(ARGV)
-
 Awesomekit::CLI.start(ARGV)
