@@ -59,6 +59,9 @@ Tests are written with [rspec](http://rspec.info/) with HTTP requests mocked wit
 
 ## TODO
 
+- There are plenty of endpoints not yet implemented here - let's get cracking!
+- Move api_key to ENV
+- Structure and return kits more like "kit objects," vs. json hashes full of data
 
 
 ## Contributing
